@@ -1,0 +1,381 @@
+
+<script type="text/javascript">
+    $(document).ready(function() {
+		$(function() {
+		  /**
+		  * NAME: Bootstrap 3 Multi-Level by Johne
+		  * This script will active Triple level multi drop-down menus in Bootstrap 3.*
+		  */
+		  $('li.dropdown-submenu').on('click', function(event) {
+			  event.stopPropagation(); 
+			  if ($(this).hasClass('open')){
+				  $(this).removeClass('open');
+			  }else{
+				  $('li.dropdown-submenu').removeClass('open');
+				  $(this).addClass('open');
+			 }
+		  });
+		});
+		
+		$("#data_inicio").click(function(){					
+				$.ajax({
+						type:"POST",
+						url: "DAO/op_producao.php",
+						data:{
+								acao:'data_inicio',
+								data_inicio:$('input[name="data_inicio"]').val()				
+								
+						},
+						success:function(result){
+							
+						   $('#retorno').append(result); 
+						   
+						}
+					 });//end ajax		
+		})// end insere item
+		$("#fase_pedido").click(function(){					
+					$.ajax({
+							type:"POST",
+							url: "DAO/op_fase_pedido.php",
+							data:{
+							        acao:'escolhe_fase'												
+									
+							},
+							success:function(result){								
+							   $('#retorno').append(result);						   
+							}
+						 });//end ajax		
+            })// end insere item
+		$("#fase_peca").click(function(){					
+					$.ajax({
+							type:"POST",
+							url: "DAO/op_fase_peca.php",
+							data:{
+							        acao:'escolhe_fase_peca'												
+									
+							},
+							success:function(result){								
+							   $('#retorno').append(result); 							   
+							}
+						 });//end ajax		
+            })// end insere item
+		$("#troca-senha").click(function(){
+			$("#Modal-trocasenha").modal("show");
+		});	
+		
+		$("#confirma_troca_senha").click(function(){
+			 
+			 $(this).prop("disabled", true);
+			 $(this).attr('disabled', 'disabled');
+			 
+            $.ajax({
+                    type:"POST",
+                    url: "DAO/op_funcionario.php",
+                    data:{
+                            acao:'troca_senha',
+							nome_usuario:$('input[name="txt_usuario_sistema"]').val(),							
+							senha_usuario:$('input[name="txt_senha"]').val(),
+							confirma_senha:$('input[name="txt_confirma_senha"]').val(),
+							id:$('input[name="id_usuario"]').val()
+													
+                            
+                    },
+                    success:function(result){
+                        //objeto.parent().html(conteudoNovo);
+                       $('body').append(result); 
+                       //location.reload();
+					   //$(window.document.location).attr('href','/orcamento/lst_produto');
+                    }
+                 });//end ajax	
+    })// end insere item	
+	$("#btn-medicao").click(function(){
+			$("#ModalMedicao").modal("show");
+	});
+	
+	$("#btn-fluxo").click(function(){
+			$("#ModalFluxo").modal("show");
+	});
+	
+	$("#btn-fechamento-fabrica").click(function(){
+			$("#ModalRemessa").modal("show");
+	});
+	$(function() {
+			$("#data_inicial").datepicker({
+				showOtherMonths: true,
+				selectOtherMonths: true,
+				 dateFormat: 'dd/mm/yy',
+				dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+				dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+				dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+				monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+				monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+			});	
+		});	
+	
+		$(function() {
+			$("#data_final").datepicker({
+				showOtherMonths: true,
+				selectOtherMonths: true,
+				 dateFormat: 'dd/mm/yy',
+				dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+				dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+				dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+				monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+				monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+			});	
+		});
+		$(function() {
+			$("#data_inicial_fluxo").datepicker({
+				showOtherMonths: true,
+				selectOtherMonths: true,
+				 dateFormat: 'dd/mm/yy',
+				dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+				dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+				dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+				monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+				monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+			});	
+		});	
+		
+		$(function() {
+			$("#data_inicial_envio").datepicker({
+				showOtherMonths: true,
+				selectOtherMonths: true,
+				 dateFormat: 'dd/mm/yy',
+				dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+				dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+				dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+				monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+				monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+			});	
+		});	
+	
+		$(function() {
+			$("#data_final_envio").datepicker({
+				showOtherMonths: true,
+				selectOtherMonths: true,
+				 dateFormat: 'dd/mm/yy',
+				dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+				dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+				dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+				monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+				monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+			});	
+		});
+	
+		$(function() {
+			$("#data_final_fluxo").datepicker({
+				showOtherMonths: true,
+				selectOtherMonths: true,
+				 dateFormat: 'dd/mm/yy',
+				dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+				dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+				dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+				monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+				monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+			});	
+		});		
+
+	});
+</script>
+<!--************************************************************************************************************* 
+************************************ Modal FLUXO CAIXA *************************************************************
+******************************************************************************************************************-->
+<div id="ModalFluxo" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      
+      <div class="modal-body">
+	  <p>Escolha o período para o fluxo de caixa</p>
+		<form action="r_fluxo" method="post" target="_blank">
+			<div class="col-md-3">
+							<label class="control-label" for="selectbasic">Data Inicial</label>					
+							<div class="controls">
+								<input type="text" class="form-control"  id="data_inicial_fluxo" name="data_inicial" autocomplete="off">
+							</div>
+				</div> 
+					  
+			  <div class="col-md-3">
+					<label class="control-label" for="selectbasic">Data Final</label>					
+					<div class="controls">
+						<input type="text" class="form-control"  id="data_final_fluxo" name="data_final" autocomplete="off">
+					</div>
+			  </div> 
+			<div class="row">
+				<div class="col-md-2">
+				  <label for="inputZip"></label>
+				 <button type="submit" id="" class="btn btn-success" style="color:white; margin-top:5px; width: 100%; height: 50px;">Sim</button>
+				</div>
+		</form>	
+				<div class="col-md-2">
+				  <label for="inputZip"></label>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" style="color:white; margin-top:5px; width: 100%; height: 50px;">Cancelar</button>
+				</div>
+			</div>
+      </div><!-- end body-->     
+    </div>
+  </div>
+</div>
+<!-- end modal -->
+<!--************************************************************************************************************* 
+************************************ Modal Medição *************************************************************
+******************************************************************************************************************-->
+<div id="ModalMedicao" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      
+      <div class="modal-body">
+	  <p>Escolha o período para medição</p>
+		<form action="r_medicao" method="post" target="_blank">
+			<div class="col-md-3">
+							<label class="control-label" for="selectbasic">Data Inicial</label>					
+							<div class="controls">
+								<input type="text" class="form-control"  id="data_inicial" name="data_inicial" autocomplete="off">
+							</div>
+				</div> 
+					  
+			  <div class="col-md-3">
+					<label class="control-label" for="selectbasic">Data Final</label>					
+					<div class="controls">
+						<input type="text" class="form-control"  id="data_final" name="data_final" autocomplete="off">
+					</div>
+			  </div> 
+			<div class="row">
+				<div class="col-md-2">
+				  <label for="inputZip"></label>
+				 <button type="submit" id="excluir_producao" class="btn btn-success" style="color:white; margin-top:5px; width: 100%; height: 50px;">Sim</button>
+				</div>
+		</form>	
+				<div class="col-md-2">
+				  <label for="inputZip"></label>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" style="color:white; margin-top:5px; width: 100%; height: 50px;">Cancelar</button>
+				</div>
+			</div>
+      </div><!-- end body-->     
+    </div>
+  </div>
+</div>
+<!-- end modal -->
+
+<div id="subtemplate">	
+
+<style type="text/css">
+ 
+/*Configurações Padrões*/
+ul.menu, .menu li, .menu a{ margin:0; padding:0; list-style:none; text-decoration:none;}
+ul.menu ul{ position:absolute; display:none; }
+ 
+/* Configurações nivel 1*/
+ul.menu{ float:left; font-family:Verdana, Geneva, sans-serif; font-size:15px; border-radius:5px; padding:0 5px;}
+.menu li{ float:left; width:auto; position:relative;}
+.menu li a{ display:block; padding:0 20px; line-height:45px; height:45px; float:left; transition:all 0.1s linear; }
+ 
+/* Configurações nivel 2*/
+.menu li:hover > ul.submenu-1{ display:block; top:45px; left:0; padding:5px; width:200px; border-radius:0 0 5px 5px;   }
+.menu ul.submenu-1 a{  width:200px; padding:0 5px; border-radius:5px;  }
+ 
+/* Configurações nivel 2*/
+.menu li:hover > ul.submenu-2{ display:block; top:0; left:195px; padding:5px; width:400px;  border-radius: 0 5px 5px 5px; }
+.menu ul.submenu-2 a{  width:400px; padding:0 20px; border-radius:5px; }
+ 
+/* Configurações nivel 3*/
+.menu li:hover > ul.submenu-3{ display:block; top:0; left:195px; padding:5px; width:400px;  border-radius: 0 5px 5px 5px; }
+.menu ul.submenu-3 a{  width:400px; padding:0 20px; border-radius:5px; }
+ 
+ 
+/*Configurações de cores*/
+ 
+/*nivel 1*/
+.menu{background:#CCC; }
+.menu a{ color:#000;}
+.menu li:hover > a{ background:#999;  color:#fff;}
+ 
+/*nivel 2*/
+.submenu-1{ background:#999;}
+.submenu-1 a{color:#fff;}
+.submenu-1 li:hover > a{ background:#666; }
+ 
+/*nivel 3*/
+.submenu-2{ background:#666;}
+.submenu-2 a{color:#fff;}
+.submenu-2 li:hover > a{ background:#333; }
+ 
+/*nivel 3*/
+.submenu-3{ background:#333;}
+.submenu-3 a{color:#fff;}
+.submenu-3 li:hover > a{ background:#000; }
+
+body {
+    background-image: url('icone_marcacao/fachada.jpg'); 
+}
+
+/* For devices 400px and larger: */
+@media only screen and (min-device-width: 700px) {
+   body {
+    width: 100%;
+    height: auto;
+    background-image: url('icone_marcacao/fachada.jpg');
+
+    background-size: cover;
+
+}
+ 
+ 
+</style>
+<!-- Modal -->
+<div class="modal fade" id="Modal-trocasenha" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Trocar Senha</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+			<form action="verificaLogin" method="POST">
+				  <div class="form-group">
+					<label for="exampleInputEmail1">Usuário</label>
+					<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="txt_usuario_sistema" autocomplete="off" value="{usuario_sistema}">					
+				  </div>
+				  <div class="form-group">
+					<label for="exampleInputPassword1">Senha</label>
+					<input type="password" class="form-control" id="exampleInputPassword1" placeholder="" name="txt_senha" autocomplete="off">
+					<input type="hidden" class="form-control" id="id_usuario" value="{id_usuario}" placeholder="" name="id_usuario" autocomplete="off">
+				  </div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Confirma Senha</label>
+					<input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="txt_confirma_senha" autocomplete="off" value="">					
+				  </div>	
+				  <button type="buttom" class="btn btn-info" id="confirma_troca_senha" style="color:white; margin-top:5px; width: 100%; height: 50px;">Alterar</button>
+			</form>
+      </div>
+      <div class="modal-footer">        
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal-->
+ <div id="retorno"></div>
+ <form action="#" method="post">
+	 <input type="hidden" name="deslogar" value="deslogar">
+	<button type="submit"   style="width: 100%; background-color:black; color:white; height: 50px; opacity: 0.6;" >
+	Usuário Logado: {usuario} - <strong style="color:yellow">Deslogar</strong></button>	 
+	</form> 
+	<button type="buttom" id="troca-senha"  style="width: 100%; background-color:black; color:white; height: 50px; opacity: 0.6;" >
+	 <strong style="color:yellow">Trocar Senha</strong></button>	 
+	{empresa}
+	{pedido}	
+	{sms}
+    {cadastro}
+	{financeiro}
+	{almoxarifado}
+	{producao}
+	{gerencia}  
+</div>
+    
+
+		
+  

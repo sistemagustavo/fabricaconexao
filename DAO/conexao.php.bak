@@ -1,0 +1,22 @@
+<?php
+function conectar(){
+	$host = '';
+	$db = 'bd_nota';
+	$user = 'root';
+	$pw= '';
+try{
+		$pdo = new PDO("mysql:host=$host";dbname="'.$db.'", "'.$user.'", "'.$pw.'");
+		//$pdo = new PDO('mysql:host=localhost;dbname=bd_vidracaria', 'root', '');
+        $pdo->exec("set names utf8");
+	
+	
+   }catch (PDOException $e){
+	 	
+	   //echo $e-> getMessagem();
+  }
+return $pdo;
+
+}
+
+
+

@@ -1,0 +1,163 @@
+ <script type="text/javascript">
+  $(document).ready(function() {	         
+       $("#btn-envia").click(function(){ 		
+			$.ajax({
+				type:"POST",
+				url: "DAO/monta_json.php",
+				data:{
+						nota:$(this).val(),				
+						
+				},
+				success:function(result){                       
+				   $('#retorno').append(result);
+				}
+			 });//end ajax       
+		});	
+		
+		$("#btn-danfe").click(function(){ 		
+			$.ajax({
+				type:"POST",
+				url: "DAO/baixar_danfe.php",
+				data:{
+						nota:$(this).val(),				
+						
+				},
+				success:function(result){                       
+				   $('#retorno').append(result);
+				}
+			 });//end ajax       
+		});	
+		$("#btn-xml").click(function(){ 		
+			$.ajax({
+				type:"POST",
+				url: "DAO/baixar_xml.php",
+				data:{
+						nota:$(this).val(),				
+						
+				},
+				success:function(result){                       
+				   $('#retorno').append(result);
+				}
+			 });//end ajax       
+		});	
+			
+			
+  });
+    
+</script>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">      
+      <div class="modal-body">
+	  <p>Confirmar Aprovação</p>
+		<div class="col-md-4">
+				<div class="control-group">
+				  <label class="control-label" for="selectbasic">Qtd Parcelas</label>
+					  <div class="controls">
+						<select id="selectbasic" name="n_parcela" class="form-control">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>	
+						</select>
+					  </div>
+				</div>       
+		  </div> 
+		  
+		<div class="row">
+			
+			<div class="col-md-3">
+			  <label for="inputZip"></label>
+			 <button type="submit" id="confirma_faturamento" class="btn btn-success" style="color:white; margin-top:5px; width: 100%; height: 50px;">Confirmar</button>
+			</div>
+			<div class="col-md-3">
+			  <label for="inputZip"></label>
+					<button type="button" class="btn btn-danger" data-dismiss="modal" style="color:white; margin-top:5px; width: 100%; height: 50px;">Cancelar</button>
+			</div>
+		</div>
+      </div><!-- end body-->   
+    </div>
+  </div>
+</div>
+<!-- end modal -->
+
+
+
+<input type="hidden" name="pedido" value="{pedido}">
+<input type="hidden" id="emissor"  name="emissor" value="{emissor}">
+
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+       		
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li class="active">			
+				<button type="buttom" class="btn btn-default" id="btn-envia" value="{pedido}" style="background-color:black; color:white; margin-top:5px; width: 98%; height: 50px;">Transmitir Nota</button>					 
+			</li>
+			<li class="active">			
+				<button type="buttom" class="btn btn-warning" id="btn-danfe" value="{pedido}" style="margin-top:5px; width: 98%; height: 50px;">Danfe</button>					 
+			</li>
+			<li class="active">			
+				<button type="buttom" class="btn btn-warning" id="btn-xml" value="{pedido}" style="margin-top:5px; width: 98%; height: 50px;">Xml</button>					 
+			</li>
+		      
+        </ul>       
+      </div>
+    </div>
+  </nav> 
+ <div id="retorno"></div> 
+
+	<h3 class="btn btn-default" style="width: 100%; background:grey; color:white;">Cabeçalho da Nota</h3> 
+	<p>Natureza da operação: {natop} *** Modelo: {mod} *** Série: {serie} *** Tipo NF-e{tpnf} *** Ambiente: {tamb} *** Tipo Impressão: {timp} *** FinNfe: {finnfe}</p>
+	<p>Ind Dest: {ind_dest} </p>
+	
+	<h3 class="btn btn-default" style="width: 100%; background:grey; color:white;">Dados do Cliente</h3>
+	<p>Consumidor Final: {cf} *** Cliente: {cliente}</p>	
+	
+ <h3 class="btn btn-default" style="width: 100%; background:grey; color:white;">Ítens da Nota</h3>  
+<table class="table table-striped table-bordered table-condensed table-hover" id="tblEdi">			
+			 <tr>
+				
+				<th ><p style="width:20px;">Ítem</p></th>                    
+				<th><p style="width:300px;">Produto</p></th>					
+				<th><p style="width:20px;">Qtd</p></th>				
+				<th>*Total.(ML)</th>					
+				<th>*M2</th>		
+				<th><p style="width:50px;">Vl Unit</p></th>
+				<th><p style="width:50px;">Vl Total</p></th>
+				<th><p style="width:80px;">CFOP</p></th>
+				<th><p style="width:120px;">Orig/CST ICMS</p></th>
+				<th><p style="width:120px;">CST PIS</p></th>
+				<th><p style="width:120px;">CST CONFINS</p></th>
+				<th>*Obs Ítem</th>
+				<th></th>	
+            </tr>
+				{registro}	
+            <div id="gravado"></div>        
+</table> 
+ <h3 class="btn btn-default" style="width: 100%; background:grey; color:white;">Financeiro</h3>
+ <p>01 Dinheiro - 02 Cheque - 03 Crédito - 04 Débito - 15 Boleto - 90 Sem Pagamento - 99 Outros</p>
+ <table class="table table-striped table-bordered table-condensed table-hover" id="tblEditavel">			
+			 <tr>
+				<th></th>
+				<th ><p style="width:50px;"></p></th> 
+				<th ><p style="width:100px;">Vencimento</p></th> 
+				<th ><p style="width:100px;">Valor Titulo</p></th>
+				<th ><p style="width:100px;">F. Pagamento</p></th>
+				<th></th>	
+							
+				
+            </tr>
+				{parcela}	
+              
+</table> 
